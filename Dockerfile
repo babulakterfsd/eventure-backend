@@ -1,7 +1,7 @@
-# Use Node.js base image
+# Use a lightweight Node.js image
 FROM node:18-slim
 
-# Install system dependencies needed by Puppeteer
+# Install required system dependencies for Puppeteer + Chromium
 RUN apt-get update && apt-get install -y \
     wget \
     ca-certificates \
@@ -19,23 +19,24 @@ RUN apt-get update && apt-get install -y \
     libxcomposite1 \
     libxdamage1 \
     libxrandr2 \
+    libgbm1 \                    # ✅ This fixes your error
     xdg-utils \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy your code into the container
+# Copy your app files
 COPY . .
 
-# Install dependencies (including puppeteer)
+# Install app dependencies
 RUN npm install
 
-# Build the TypeScript code
+# Build TypeScript to JavaScript
 RUN npm run build
 
-# Expose the port (change this if your app uses another)
+# Expose port (adjust if your app uses a different port)
 EXPOSE 8080
 
-# Start your backend
+# Start the server
 CMD ["node", "dist/server.js"]

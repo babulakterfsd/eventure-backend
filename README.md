@@ -12,4 +12,4 @@
 
 - First, clone the repo and install the dependencies using `npm install` command.
 - then, build the project using `npm run build` command.
-- at last, run the project using `npm run start:dev` command.
+- at last, run the project using `npm run start:dev` command

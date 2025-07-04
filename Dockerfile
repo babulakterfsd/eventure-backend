@@ -1,7 +1,7 @@
-# Use a lightweight Node.js image
+
 FROM node:18-slim
 
-# Install required system dependencies for Puppeteer + Chromium
+
 RUN apt-get update && apt-get install -y \
     wget \
     ca-certificates \
@@ -19,24 +19,24 @@ RUN apt-get update && apt-get install -y \
     libxcomposite1 \
     libxdamage1 \
     libxrandr2 \
-    libgbm1 \                    # ✅ This fixes your error
+    libgbm1 \                    
     xdg-utils \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory
+
 WORKDIR /app
 
-# Copy your app files
+
 COPY . .
 
-# Install app dependencies
+
 RUN npm install
 
-# Build TypeScript to JavaScript
+
 RUN npm run build
 
-# Expose port (adjust if your app uses a different port)
+
 EXPOSE 8080
 
-# Start the server
+
 CMD ["node", "dist/server.js"]

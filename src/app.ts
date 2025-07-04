@@ -13,7 +13,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: [
+      'http://localhost:3000',
+      'https://hypestat-scrapper-frontend.vercel.app',
+    ],
     credentials: true,
   }),
 );
